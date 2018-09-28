@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+	<div class="container">
+		<div class="row">
+			{% for x in Tpics %}
+				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+					<div class="thumbnail">					
+						<a href="{%url 'pic_detail' x.pub_date %}">
+							<img src="/media/{{x.pic_small}}" class="img-responsive" alt="">
+						</a>
+						<div class="caption">
+							<p>{{x.title | truncatechars:15}}</p>
+							<p>
+								<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>{{x.pub_date}}
+							</p>
+							<p>
+								<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>{{x.get_read_num}}
+							</p>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+
+	<nav aria-label="Page navigation">
+	  <ul class="pagination">
+	    <li>
+	    	{#判断是否有上一页#}
+			{% if Tpics.has_previous %}
+	    	<a href="?page={{Tpics.previous_page_number}}" aria-label="Previous">
+	        	<span aria-hidden="true">&laquo;</span>
+	    	</a>
+	    	{% else %}
+	    		<span aria-hidden="true">&laquo;</span>
+	    	{% endif %}
+
+			{#列出页面范围#}
+			</li>
+				{% for x in Tpics.paginator.page_range %}
+				<li><a href="?page={{x}}">{{x}}</a></li>
+				{% endfor %}
+			<li>
+
+	    	{#判断是否有下一页#}
+	    	{% if Tpics.has_next %}
+	    	<a href="?page={{Tpics.next_page_number}}" aria-label="Next">
+	        	<span aria-hidden="true">&raquo;</span>
+	    	</a>
+	    	{% else %}
+	    		<span aria-hidden="true">&raquo;</span>
+	    	{% endif %}
+
+	    </li>
+	  </ul>
+	</nav>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}
+
+	<p>{{onepic.description}}</p>
+  <img src="//{{onepic.pic_full}}" class="img-responsive" alt="">
+  
+<nav>
+  <ul class="pager">
+  	{% if previous_pic %}
+    <li class="previous"><a href="{%url 'pic_detail' previous_pic.pub_date %}"><span aria-hidden="true">&larr;</span>上一篇</a></li>
+    {% else %}
+    <li class="previous disabled"><a>没有了</a></li>
+	{% endif %}
+
+	{% if next_pic %}
+    <li class="next"><a href="{%url 'pic_detail' next_pic.pub_date %}">下一篇<span aria-hidden="true">&rarr;</span></a></li>
+    {% else %}
+    <li class="next disabled"><a>没有了</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+{% endblock %}
